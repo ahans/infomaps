@@ -93,6 +93,22 @@ while(true) {
 };	
 
 close(in);
+
+
+void draw_legend(real x, real y, real dx, real dy, real green, string text) {
+    fill((x,y)--(x+dx,y)--(x+dx,y+dy)--(x,y+dy)--cycle, rgb(1,green,0));
+    draw((x,y)--(x+dx,y)--(x+dx,y+dy)--(x,y+dy)--cycle, rgb(0,0,0));
+    label(text, (x+0.05, y-0.025), E, black+fontsize(6));
+}
+
+draw_legend(-2.5, -1.000+0.5, 0.05, -0.05, 0/6, "0-9\,\%");
+draw_legend(-2.5, -1.075+0.5, 0.05, -0.05, 1/6, "10-19\,\%");
+draw_legend(-2.5, -1.150+0.5, 0.05, -0.05, 2/6, "20-29\,\%");
+draw_legend(-2.5, -1.225+0.5, 0.05, -0.05, 3/6, "30-39\,\%");
+draw_legend(-2.5, -1.300+0.5, 0.05, -0.05, 4/6, "40-49\,\%");
+draw_legend(-2.5, -1.375+0.5, 0.05, -0.05, 5/6, "50-59\,\%");
+draw_legend(-2.5, -1.450+0.5, 0.05, -0.05, 6/6, "60-69\,\%");
+
 pair[] constlong(real lambda, int np=100) {
 	pair[] tmp;
 	for(int i=0;i<=np;++i) tmp.push((-90+i*180/np,lambda));
@@ -108,11 +124,11 @@ pair[] constlat(real phi, int np=100) {
 // draw(gfrompairs(constlong(180)),1.5bp+white);
 // for(int j=0;j<=12;++j) draw(gfrompairs(constlat(-90+j/6*180)),white);	
 
-guide boundary=gfrompairs(constlong(25))--reverse(gfrompairs(constlong(43)))--cycle;
+guide boundary=gfrompairs(constlong(-180))--reverse(gfrompairs(constlong(180)))--cycle;
 picture pic;
 add(pic,currentpicture);
 erase();
-// fill(boundary,paleblue);
+fill(boundary,paleblue);
 add(pic);
 shipout(bbox(1mm,gray(0.7),Fill(gray(0.7))), view=true);
 
